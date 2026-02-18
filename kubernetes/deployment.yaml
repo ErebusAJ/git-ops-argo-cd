@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: static-container
-          image: aaryaj/argo-cd:alpine
+          image: aaryaj/argo-cd:8
           ports:
             - containerPort: 80
