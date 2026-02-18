@@ -67,7 +67,7 @@ pipeline {
                                 git config user.email "jenkins@ci.local"
                                 git config user.name "jenkins"
 
-                                git add k8s/deployment.yaml
+                                git add kubernetes/deployment.yaml
                                 git commit -m "Update image to $IMAGE_TAG [skip ci]" || echo "No changes"
 
                                 git push https://$GIT_USER:$GIT_PASS@$GIT_REPO HEAD:main
