@@ -13,8 +13,8 @@ provider "aws" {
 
 
 # Specifing local key-pair
-resource "aws_key_pair" "terra-key" {
-  key_name   = "terra-key"
+resource "aws_key_pair" "jenkins_ec2" {
+  key_name   = "jenkins_ec2"
   public_key = file("./ssh-keys/jenkins_ec2.pub") # takes local key and ingest to aws ec2
 }
 
@@ -42,12 +42,12 @@ resource "aws_security_group" "my-ec2-sg" {
 resource "aws_instance" "example" {
   ami                    = "ami-019715e0d74f695be"
   instance_type          = "t2.micro"
-  key_name               = aws_key_pair.terra-key.key_name
+  key_name               = aws_key_pair.jenkins_ec2.key_name
   vpc_security_group_ids = [aws_security_group.my-ec2-sg.id]
   user_data              = file("./scripts/bootstrap.sh") # install's jenkins
 
   tags = {
-    Name = "terraform-test1"
+    Name = "jenkins-ci"
   }
 
 }

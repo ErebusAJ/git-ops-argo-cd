@@ -1,9 +1,9 @@
-#!bin/bash
+#!/bin/bash
 
-apt update -y
-apt upgrade -y
+apt -y update 
+apt -y upgrade 
 
-sudo apt install fontconfig openjdk-21-jre
+sudo apt -y install fontconfig openjdk-21-jre
 java -version
 
 echo "Installed Java"
@@ -14,8 +14,8 @@ sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
 echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt update
-sudo apt install jenkins
+sudo apt -y update
+sudo apt -y install jenkins
 
 
 echo "Jenkins Installed"
