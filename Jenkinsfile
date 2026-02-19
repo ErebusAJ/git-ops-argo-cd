@@ -41,7 +41,7 @@ pipeline {
                                     docker buildx create --use || true
                                     docker buildx build \
                                     --platform linux/amd64,linux/arm64/v8 \
-                                    -t $IMAGE_NAME:$IMAGE_TAG . \
+                                    -t $IMAGE_NAME:$IMAGE_TAG \
                                     --push .
                                 '''
                             }
