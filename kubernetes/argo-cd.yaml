@@ -8,14 +8,16 @@ spec:
 
   source:
     repoURL: https://github.com/ErebusAJ/git-ops-argo-cd.git
-    targetRevision: master
+    targetRevision: HEAD
     path: kubernetes
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: nginx-app
 
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
