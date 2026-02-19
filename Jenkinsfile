@@ -34,15 +34,16 @@ pipeline {
                             credentialsId: 'dockerhub-creds',
                             usernameVariable: 'DOCKER_USER',
                             passwordVariable: 'DOCKER_PASS'
-                        )])
-                        dir('backend') {
-                            sh '''
-                                echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                                docker buildx create --use || true
-                                docker buildx build \
-                                --platform linux/amd64,linux/arm64/v8 \
-                                -t $IMAGE_NAME:$IMAGE_TAG .
-                            '''
+                        )]) {
+                            dir('backend') {
+                                sh '''
+                                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                                    docker buildx create --use || true
+                                    docker buildx build \
+                                    --platform linux/amd64,linux/arm64/v8 \
+                                    -t $IMAGE_NAME:$IMAGE_TAG .
+                                '''
+                            }
                         }
                     }
                 }
