@@ -89,3 +89,10 @@ The [argo-cd.yaml](kubernetes/argo-cd.yaml) contains argocd application manifest
 
 ![alt text](assets/Screenshot%202026-02-19%20at%2010.14.24 PM.png)
 
+`ArgoCD autosync`
+
+![alt text](assets/Screenshot%202026-02-19%20at%2010.26.21 PM.png)
+
+---
+
+@ErebusAJ
