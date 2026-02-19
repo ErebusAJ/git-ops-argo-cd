@@ -28,7 +28,13 @@ pipeline {
                 stage('Build Backend Image') {
                     steps {
                         dir('backend') {
-                            sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+                            sh '''
+                                docker buildx create --use || true
+                                docker buildx build \
+                                --platform linux/amd64,linux/arm64/v8 \
+                                --load \
+                                -t $IMAGE_NAME:$IMAGE_TAG .
+                            '''
                         }
                     }
                 }
