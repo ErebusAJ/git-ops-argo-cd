@@ -12,8 +12,11 @@ pipeline {
         stage('CI Pipeline') {
 
             when {
-                not {
-                    changelog '.*Update image.*'
+                expression {
+                    return !sh(
+                        script: "git log -1 --pretty=%B",
+                        returnStdout: true
+                    ).trim().contains("Update image")
                 }
             }
 
