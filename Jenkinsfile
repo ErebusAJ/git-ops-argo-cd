@@ -30,8 +30,14 @@ pipeline {
 
                 stage('Build Backend Image') {
                     steps {
+                        withCredentials([usernamePassword(
+                            credentialsId: 'dockerhub-creds',
+                            usernameVariable: 'DOCKER_USER',
+                            passwordVariable: 'DOCKER_PASS'
+                        )])
                         dir('backend') {
                             sh '''
+                                echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                                 docker buildx create --use || true
                                 docker buildx build \
                                 --platform linux/amd64,linux/arm64/v8 \
@@ -41,20 +47,21 @@ pipeline {
                     }
                 }
 
-                stage('Push Image') {
-                    steps {
-                        withCredentials([usernamePassword(
-                            credentialsId: 'dockerhub-creds',
-                            usernameVariable: 'DOCKER_USER',
-                            passwordVariable: 'DOCKER_PASS'
-                        )]) {
-                            sh '''
-                                echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                                docker push $IMAGE_NAME:$IMAGE_TAG
-                            '''
-                        }
-                    }
-                }
+                // Use if doing simple docker build
+                // stage('Push Image') {
+                //     steps {
+                //         withCredentials([usernamePassword(
+                //             credentialsId: 'dockerhub-creds',
+                //             usernameVariable: 'DOCKER_USER',
+                //             passwordVariable: 'DOCKER_PASS'
+                //         )]) {
+                //             sh '''
+                //                 echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                //                 docker push $IMAGE_NAME:$IMAGE_TAG
+                //             '''
+                //         }
+                //     }
+                // }
 
                 stage('Update Manifest') {
                     steps {
