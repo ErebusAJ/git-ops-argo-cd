@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-app
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: nginx-app
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: static-container
-          image: aaryaj/argo-cd:19
+          image: aaryaj/argo-cd:10
           ports:
             - containerPort: 80
